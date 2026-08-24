@@ -5,7 +5,7 @@ Compatible OpenAI. BYOK. Workspace unique. Streaming. `model="auto"`.
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -271,7 +271,7 @@ Construit en test-first. Chaque comportement livré ici a d'abord eu un test qui
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 410 passed
+# 487 passed
 ```
 
 | Slice | Tests | Quoi |
@@ -298,7 +298,7 @@ PYTHONPATH=. pytest -v
 | 20. Anthropic `/v1/messages` | 53 | traduction requête/réponse/stream + intégration de l'ingress |
 | 21. Gemini `/v1beta` | 40 | traduction incluant la normalisation schema-enum + ingress generateContent/stream |
 | 22. Packaging | 6 | script console, dashboard embarqué dans le wheel, résolution du répertoire design |
-| **Total** | **410** | |
+| **Total** | **487** | |
 
 Les lignes de slice montrent les tests ajoutés à la livraison de chaque slice ; le total est la suite complète actuelle.
 

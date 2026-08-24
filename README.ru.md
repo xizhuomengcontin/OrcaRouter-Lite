@@ -5,7 +5,7 @@ OpenAI-совместимый. BYOK. Один рабочий пространс�
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -271,7 +271,7 @@ x-orca-cache: HIT          ← из кэша, без запроса к upstream
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 410 passed
+# 487 passed
 ```
 
 | Слайс | Тесты | Что |
@@ -298,7 +298,7 @@ PYTHONPATH=. pytest -v
 | 20. Anthropic `/v1/messages` | 53 | трансляция request/response/stream + ingress-интеграция |
 | 21. Gemini `/v1beta` | 40 | трансляция, вкл. нормализацию schema-enum + ingress для generateContent/stream |
 | 22. Упаковка | 6 | консольный скрипт, дашборд внутри wheel, разрешение каталога design |
-| **Всего** | **410** | |
+| **Всего** | **487** | |
 
 Строки слайсов показывают тесты, добавленные при выпуске каждого слайса; итог — текущий полный набор тестов.
 

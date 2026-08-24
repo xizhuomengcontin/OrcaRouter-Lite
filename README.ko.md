@@ -5,7 +5,7 @@ OpenAI 호환. BYOK. 단일 작업 공간. 스트리밍. `모델="자동"`.
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![테스트](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
+[![테스트](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![모델](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![라이센스](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -271,7 +271,7 @@ x-orca-cache: HIT          ← served from cache, no upstream call
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 410 passed
+# 487 passed
 ```
 
 | 슬라이스 | 테스트 | 무엇 |
@@ -298,7 +298,7 @@ PYTHONPATH=. pytest -v
 | 20. Anthropic `/v1/messages` | 53 | 요청/응답/스트림 변환 + 인그레스 통합 |
 | 21. Gemini `/v1beta` | 40 | schema-enum 정규화를 포함한 변환 + generateContent/스트림 인그레스 |
 | 22. 패키징 | 6 | 콘솔 스크립트, wheel에 포함된 대시보드, design 디렉터리 해석 |
-| **합계** | **410** | |
+| **합계** | **487** | |
 
 슬라이스 행은 각 슬라이스가 출시될 때 추가된 테스트를 보여줍니다. 합계는 현재 전체 테스트 스위트입니다.
 

@@ -5,7 +5,7 @@
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -271,7 +271,7 @@ x-orca-cache: HIT          ← 来自缓存，无上游调用
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 410 passed
+# 487 passed
 ```
 
 | 切片 | 测试数 | 内容 |
@@ -298,7 +298,7 @@ PYTHONPATH=. pytest -v
 | 20. Anthropic `/v1/messages` | 53 | 请求/响应/流的转换 + 入口集成 |
 | 21. Gemini `/v1beta` | 40 | 转换（含 schema-enum 归一化）+ generateContent/流式入口 |
 | 22. 打包 | 6 | 控制台脚本、随 wheel 打包的仪表板、design 目录解析 |
-| **合计** | **410** | |
+| **合计** | **487** | |
 
 切片行显示的是各切片交付时新增的测试；合计是当前的完整测试套件。
 

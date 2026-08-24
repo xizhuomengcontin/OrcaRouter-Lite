@@ -5,7 +5,7 @@ OpenAI-compatible। BYOK। एकल-वर्कस्पेस। स्ट�
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -271,7 +271,7 @@ x-orca-cache: HIT          ← कैश से सर्व, कोई upstream
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 410 passed
+# 487 passed
 ```
 
 | स्लाइस | टेस्ट | क्या |
@@ -298,7 +298,7 @@ PYTHONPATH=. pytest -v
 | 20. Anthropic `/v1/messages` | 53 | request/response/stream अनुवाद + इनग्रेस एकीकरण |
 | 21. Gemini `/v1beta` | 40 | schema-enum सामान्यीकरण सहित अनुवाद + generateContent/stream इनग्रेस |
 | 22. पैकेजिंग | 6 | कंसोल स्क्रिप्ट, wheel में बंडल डैशबोर्ड, design डायरेक्टरी रिज़ॉल्यूशन |
-| **कुल** | **410** | |
+| **कुल** | **487** | |
 
 स्लाइस पंक्तियाँ प्रत्येक स्लाइस के शिप होने पर जोड़े गए टेस्ट दिखाती हैं; कुल वर्तमान पूर्ण टेस्ट सुइट है।
 

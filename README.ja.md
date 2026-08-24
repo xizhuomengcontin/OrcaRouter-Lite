@@ -5,7 +5,7 @@ OpenAI対応。ビヨク。単一のワークスペース。ストリーミン�
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![テスト](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
+[![テスト](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![モデル](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![ライセンス](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -271,7 +271,7 @@ x-orca-cache: HIT          ← served from cache, no upstream call
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 410 passed
+# 487 passed
 ```
 
 |スライス |テスト |何を |
@@ -298,7 +298,7 @@ PYTHONPATH=. pytest -v
 | 20. Anthropic `/v1/messages` | 53 |リクエスト/レスポンス/ストリームの変換 + イングレス統合 |
 | 21. Gemini `/v1beta` | 40 |schema-enum 正規化を含む変換 + generateContent/ストリーム イングレス |
 | 22. パッケージング | 6 | コンソールスクリプト、wheel 同梱ダッシュボード、design ディレクトリ解決 |
-| **合計** | **410** | |
+| **合計** | **487** | |
 
 スライス行は各スライスの出荷時に追加されたテストを示します。合計は現在の完全なテスト スイートです。
 

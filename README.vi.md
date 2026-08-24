@@ -5,7 +5,7 @@ Tương thích OpenAI. BYOK. Workspace đơn. Streaming. `model="auto"`.
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -271,7 +271,7 @@ Xây dựng theo test-first. Mỗi hành vi giao ở đây đều có một test
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 410 passed
+# 487 passed
 ```
 
 | Slice | Tests | Cái gì |
@@ -298,7 +298,7 @@ PYTHONPATH=. pytest -v
 | 20. Anthropic `/v1/messages` | 53 | chuyển đổi request/response/stream + tích hợp ngõ vào |
 | 21. Gemini `/v1beta` | 40 | chuyển đổi gồm cả chuẩn hoá schema-enum + ngõ vào generateContent/stream |
 | 22. Đóng gói | 6 | script console, dashboard đi kèm wheel, phân giải thư mục design |
-| **Tổng** | **410** | |
+| **Tổng** | **487** | |
 
 Các hàng slice hiển thị số test được thêm khi từng slice ra mắt; tổng là bộ test đầy đủ hiện tại.
 
