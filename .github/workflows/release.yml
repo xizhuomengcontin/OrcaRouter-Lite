@@ -129,7 +129,12 @@ jobs:
 
   pypi:
     name: pypi
-    if: startsWith(github.ref, 'refs/tags/v')
+    # Forks can rehearse the whole release (the image job pushes to their own
+    # ghcr namespace), but only the canonical repo owns the PyPI project — a
+    # fork has no trusted publisher and would just fail at the OIDC exchange.
+    if: >-
+      startsWith(github.ref, 'refs/tags/v')
+      && github.repository == 'Continuum-AI-Corp/OrcaRouter-Lite'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment:
