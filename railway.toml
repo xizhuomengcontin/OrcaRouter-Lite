@@ -12,9 +12,18 @@
 #
 #   2. Add a Volume mounted at `/data`. Skip this and the SQLite file lives in
 #      the container filesystem, so every redeploy wipes provider keys, API keys
-#      and analytics.
+#      and analytics. Attaching it also makes RAILWAY_RUN_UID=0 mandatory —
+#      see step 3.
 #
 #   3. Variables -> add:
+#        RAILWAY_RUN_UID=0
+#            REQUIRED as soon as the volume from step 2 is attached. The image
+#            ends on `USER orca` (see the Dockerfile) and Railway mounts volumes
+#            root-owned, so SQLite cannot create /data/orca.db. Without this the
+#            image builds fine and the deploy then fails its healthcheck with
+#            "1/1 replicas never became healthy" — the build log gives no hint;
+#            the reason is only in the deploy log. Railway documents this
+#            variable as the fix for non-root images.
 #        DATABASE_URL=sqlite+aiosqlite:////data/orca.db
 #            Four slashes: `sqlite+aiosqlite:` + `///` (scheme) + `/data/orca.db`
 #            (absolute path). Matches the volume mount point from step 2.

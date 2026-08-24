@@ -214,7 +214,7 @@ Mais de 100 modelos de chat são carregados na inicialização a partir do [banc
 | Docker puro | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (painel incluído) |
 
-> **Railway:** monte um volume em `/data` e defina `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`, ou cada redeploy apaga suas chaves e analytics. Lista completa de variáveis: [`railway.toml`](./railway.toml).
+> **Railway:** monte um volume em `/data`, depois defina `RAILWAY_RUN_UID=0` e `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`. Sem o primeiro o healthcheck falha (a imagem roda como não-root e o volume é montado com root como dono); sem o segundo cada redeploy apaga suas chaves e analytics. Lista completa de variáveis: [`railway.toml`](./railway.toml).
 
 ## O que vem na caixa
 

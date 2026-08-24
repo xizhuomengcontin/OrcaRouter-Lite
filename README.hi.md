@@ -214,7 +214,7 @@ Requests को एज पर उसी आंतरिक पाइपलाइ
 | बेयर Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (डैशबोर्ड शामिल) |
 
-> **Railway:** `/data` पर एक वॉल्यूम माउंट करें और `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` सेट करें, वरना हर redeploy आपकी कीज़ और analytics मिटा देगा। पूरी वेरिएबल सूची: [`railway.toml`](./railway.toml)।
+> **Railway:** `/data` पर एक वॉल्यूम माउंट करें, फिर `RAILWAY_RUN_UID=0` और `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` सेट करें। पहला न हो तो डिप्लॉय हेल्थचेक पर विफल होता है (इमेज non-root चलती है जबकि वॉल्यूम root के स्वामित्व में माउंट होता है); दूसरा न हो तो हर redeploy आपकी कीज़ और analytics मिटा देगा। पूरी वेरिएबल सूची: [`railway.toml`](./railway.toml)।
 
 ## बॉक्स में क्या है
 

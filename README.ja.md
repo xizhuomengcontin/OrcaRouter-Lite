@@ -214,7 +214,7 @@ client.models.generate_content(model="auto", contents="Hello!")
 | 素の Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite`（ダッシュボード同梱） |
 
-> **Railway:** `/data` にボリュームをマウントし `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` を設定してください。設定しないと再デプロイのたびにキーと分析データが消えます。変数の全一覧は [`railway.toml`](./railway.toml)。
+> **Railway:** `/data` にボリュームをマウントし、`RAILWAY_RUN_UID=0` と `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` を設定してください。前者がないとヘルスチェックに失敗します（イメージは非 root で動作し、ボリュームは root 所有でマウントされるため）。後者がないと再デプロイのたびにキーと分析データが消えます。変数の全一覧は [`railway.toml`](./railway.toml)。
 
 ## 箱の中身は何ですか
 

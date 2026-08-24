@@ -214,7 +214,7 @@ client.models.generate_content(model="auto", contents="Hello!")
 | 裸 Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite`（自带仪表板） |
 
-> **Railway：** 需挂载一个 `/data` 卷并设置 `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`，否则每次重新部署都会清空密钥和分析数据。完整变量列表见 [`railway.toml`](./railway.toml)。
+> **Railway：** 挂载一个 `/data` 卷，然后设置 `RAILWAY_RUN_UID=0` 和 `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`。缺前者部署会卡在健康检查失败（镜像以非 root 运行，而卷是 root 所有）；缺后者每次重新部署都会清空密钥和分析数据。完整变量列表见 [`railway.toml`](./railway.toml)。
 
 ## 盒子里都有什么
 

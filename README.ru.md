@@ -214,7 +214,7 @@ client.models.generate_content(model="auto", contents="Hello!")
 | Голый Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (панель в комплекте) |
 
-> **Railway:** подключите том в `/data` и задайте `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`, иначе каждый передеплой сотрёт ключи и аналитику. Полный список переменных: [`railway.toml`](./railway.toml).
+> **Railway:** подключите том в `/data`, затем задайте `RAILWAY_RUN_UID=0` и `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`. Без первого деплой падает на healthcheck (образ работает не от root, а том монтируется с владельцем root); без второго каждый передеплой стирает ключи и аналитику. Полный список переменных: [`railway.toml`](./railway.toml).
 
 ## Что в коробке
 

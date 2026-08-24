@@ -214,7 +214,7 @@ client.models.generate_content(model="auto", contents="Hello!")
 | 순수 Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (대시보드 포함) |
 
-> **Railway:** `/data`에 볼륨을 마운트하고 `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`를 설정하세요. 그러지 않으면 재배포할 때마다 키와 분석 데이터가 사라집니다. 전체 변수 목록: [`railway.toml`](./railway.toml).
+> **Railway:** `/data`에 볼륨을 마운트한 뒤 `RAILWAY_RUN_UID=0`과 `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`를 설정하세요. 앞의 것이 없으면 헬스체크에 실패하고(이미지는 non-root로 실행되는데 볼륨은 root 소유로 마운트됨), 뒤의 것이 없으면 재배포할 때마다 키와 분석 데이터가 사라집니다. 전체 변수 목록: [`railway.toml`](./railway.toml).
 
 ## 상자 안에 무엇이 들어있나요?
 

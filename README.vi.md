@@ -214,7 +214,7 @@ Hơn 100 mô hình chat được nạp khi khởi động từ [cơ sở dữ li
 | Docker thuần | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (kèm dashboard) |
 
-> **Railway:** gắn một volume vào `/data` và đặt `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`, nếu không mỗi lần redeploy sẽ xoá sạch key và analytics. Danh sách biến đầy đủ: [`railway.toml`](./railway.toml).
+> **Railway:** gắn một volume vào `/data`, rồi đặt `RAILWAY_RUN_UID=0` và `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`. Thiếu cái đầu thì deploy hỏng ở healthcheck (image chạy non-root còn volume được mount thuộc quyền root); thiếu cái sau thì mỗi lần redeploy sẽ xoá sạch key và analytics. Danh sách biến đầy đủ: [`railway.toml`](./railway.toml).
 
 ## Có gì trong hộp
 

@@ -214,7 +214,7 @@ Beim Start werden über 100 Chat-Modelle aus [LiteLLMs von der Community gepfleg
 | Bare Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (Dashboard inklusive) |
 
-> **Railway:** Ein Volume unter `/data` einhängen und `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` setzen — sonst löscht jedes Redeploy Keys und Analytics. Vollständige Variablenliste: [`railway.toml`](./railway.toml).
+> **Railway:** Ein Volume unter `/data` einhängen, dann `RAILWAY_RUN_UID=0` und `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` setzen. Ohne das erste scheitert der Healthcheck (das Image läuft als Nicht-Root, das Volume wird Root-eigen eingehängt); ohne das zweite löscht jedes Redeploy Keys und Analytics. Vollständige Variablenliste: [`railway.toml`](./railway.toml).
 
 ## Was ist enthalten
 

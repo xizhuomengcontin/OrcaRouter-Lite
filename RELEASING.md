@@ -68,11 +68,25 @@ deploy flow, but costs the visitor two extra clicks.
 1. Deploy the repo once: **railway.com → New Project → Deploy from GitHub repo
    → OrcaRouter-Lite**. `railway.toml` supplies the Dockerfile build, the
    `/health` check and the restart policy.
-2. Add a **Volume** mounted at `/data`, then set the variables listed in the
-   comments at the top of [`railway.toml`](./railway.toml) — at minimum
-   `DATABASE_URL`, `CREDENTIAL_ENCRYPTION_KEY` and `API_KEY_PEPPER`. Whatever
-   this project looks like is exactly what one-click deployers get, volume
-   included, so get it healthy before moving on.
+2. Add a **Volume** mounted at `/data`, then set:
+
+   | Variable | Value |
+   |---|---|
+   | `RAILWAY_RUN_UID` | `0` |
+   | `DATABASE_URL` | `sqlite+aiosqlite:////data/orca.db` |
+   | `CREDENTIAL_ENCRYPTION_KEY` | `openssl rand -hex 32` |
+   | `API_KEY_PEPPER` | `openssl rand -hex 32` |
+
+   `RAILWAY_RUN_UID=0` is not optional once the volume is attached: the image
+   ends on `USER orca` and Railway mounts volumes root-owned, so SQLite cannot
+   create `/data/orca.db`. The symptom is a clean build followed by
+   "1/1 replicas never became healthy" with nothing in the build log to explain
+   it. [`railway.toml`](./railway.toml) carries the same note.
+
+   Whatever this project looks like is exactly what one-click deployers get —
+   volume and variables included — so get it healthy before moving on. Keep
+   `RAILWAY_RUN_UID` and `DATABASE_URL` in the published template; clear the two
+   secrets so deployers are prompted for their own.
 3. Create an account token at <https://railway.com/account/tokens> and run:
 
    ```bash

@@ -220,7 +220,7 @@ routing strategies, and the analytics dashboard all work identically. Guides:
 | Bare Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
 | pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (dashboard included) |
 
-> **Railway:** add a volume mounted at `/data` and set `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`, or every redeploy wipes your keys and analytics. Full variable list: [`railway.toml`](./railway.toml).
+> **Railway:** mount a volume at `/data`, then set `RAILWAY_RUN_UID=0` and `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`. Miss the first and the deploy fails its healthcheck (the image runs as non-root, the volume mounts root-owned); miss the second and every redeploy wipes your keys and analytics. Full variable list: [`railway.toml`](./railway.toml).
 
 ## What's in the box
 
