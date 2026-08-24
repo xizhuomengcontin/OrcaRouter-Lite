@@ -40,7 +40,9 @@ HOSTED_MODELS: tuple[tuple[str, str], ...] = (
     ('deepseek', 'deepseek-chat'),
     ('deepseek', 'deepseek-reasoner'),
     ('deepseek', 'deepseek-v4-flash'),
+    ('deepseek', 'deepseek-v4-flash-free'),
     ('deepseek', 'deepseek-v4-pro'),
+    ('deepseek', 'deepseek-v4-pro-free'),
     ('google', 'gemini-2.5-flash-image'),
     ('google', 'gemini-2.5-pro'),
     ('google', 'gemini-3-flash-preview'),
@@ -111,6 +113,7 @@ HOSTED_MODELS: tuple[tuple[str, str], ...] = (
     ('openai', 'gpt-5.5-2026-04-23'),
     ('openai', 'gpt-5.5-pro'),
     ('openai', 'gpt-5.5-pro-2026-04-23'),
+    ('orcarouter', 'free'),
     ('qwen', 'qwen3-max'),
     ('qwen', 'qwen3-max-preview'),
     ('qwen', 'qwen3-vl-235b-a22b-instruct'),
@@ -128,7 +131,19 @@ HOSTED_MODELS: tuple[tuple[str, str], ...] = (
     ('qwen', 'qwen3.6-flash-2026-04-16'),
     ('qwen', 'qwen3.6-plus'),
     ('qwen', 'qwen3.6-plus-2026-04-02'),
+    ('qwen', 'qwen3.8-27b-free'),
 )
+
+# O2's public API uses provider-qualified IDs for its zero-credit models.
+# Keep the normal bare model group for compatibility, and additionally expose
+# these exact wire IDs so OpenAI-compatible clients can copy an ID directly
+# from api.orcarouter.ai/v1/models into their local Lite request unchanged.
+HOSTED_MODEL_ALIASES: frozenset[str] = frozenset({
+    'deepseek/deepseek-v4-flash-free',
+    'deepseek/deepseek-v4-pro-free',
+    'orcarouter/free',
+    'qwen/qwen3.8-27b-free',
+})
 
 # Supplemental catalog metadata for O2 models absent from LiteLLM's model_cost.
 # Subset of HOSTED_MODELS — only entries whose bare_id LiteLLM doesn't ship.
@@ -136,6 +151,16 @@ HOSTED_MODELS: tuple[tuple[str, str], ...] = (
 # robotics-er, grok-imagine-*) are deployable via explicit pin but skipped
 # by auto-routing (no cost metadata → eligibility filter drops them).
 HOSTED_CATALOG_SUPPLEMENT: tuple[tuple, ...] = (
+    # Zero-credit models, listed under the provider-qualified wire IDs O2's
+    # own /v1/models uses (each has a matching deployment via
+    # HOSTED_MODEL_ALIASES). 0.0/0.0 is the true zero-credit price; note
+    # that choose_auto_model deliberately excludes zero-blended-cost
+    # entries from auto-routing, so these are discoverable + pinnable but
+    # never auto-selected.
+    ('deepseek/deepseek-v4-flash-free', 'deepseek', 'deepseek/', True, False, True, 0.0, 0.0),
+    ('deepseek/deepseek-v4-pro-free'  ,  'deepseek', 'deepseek/', True, False, True, 0.0, 0.0),
+    ('orcarouter/free'           , 'orcarouter',   'openai/', True, False, True, 0.0, 0.0),
+    ('qwen/qwen3.8-27b-free'     ,      'qwen',   'openai/', True, False, True, 0.0, 0.0),
     ('claude-haiku-4.5'          , 'anthropic', 'anthropic/', True, True, True, 1.00e-06, 5.00e-06),
     ('claude-opus-4'             , 'anthropic', 'anthropic/', True, True, True, 1.50e-05, 7.50e-05),
     ('claude-opus-4.1'           , 'anthropic', 'anthropic/', True, True, True, 1.50e-05, 7.50e-05),
