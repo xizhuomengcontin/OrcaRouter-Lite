@@ -122,13 +122,30 @@ Before publishing, the `pypi` job installs the wheel into a clean venv, boots
 it, and fails the release if `/health` or the dashboard at `/` does not answer.
 The `image` job runs the same smoke test against the pushed image.
 
-### Publishing the existing v0.1.0
+### The already-tagged v0.1.0
 
-`v0.1.0` was tagged before this workflow existed, so nothing was ever published
-for it. To release it as-is, run the workflow against the tag:
-**Actions → release → Run workflow → Use workflow from: `v0.1.0`**. A
-`workflow_dispatch` on a tag ref takes the tag path, so it produces `:latest`,
-`:0.1.0`, `:0.1` and the PyPI release. Otherwise just cut `v0.1.1` normally.
+`v0.1.0` was tagged before this workflow existed, and it cannot be released
+as-is. `workflow_dispatch` runs the workflow file *from the ref you select*, and
+that tag carries only `ci.yml` and `benchmark.yml` — there is no `release.yml`
+at `v0.1.0` for the dispatch to run.
+
+Cut `v0.1.1` instead. (Force-moving the `v0.1.0` tag onto a commit that has the
+workflow would also work — nothing has consumed that tag yet — but re-pointing a
+published tag is not a habit worth starting.)
+
+### Rehearsing on a fork
+
+The `image` job pushes to `ghcr.io/<whatever repo it runs in>`, so a fork can
+exercise the whole thing against its own namespace with no secrets: enable
+Actions on the fork, then either open a pull request (runs `ci.yml`, which
+builds the image and boots it without pushing) or push to the fork's `main`
+(runs `release.yml`, which publishes `:edge`). The `pypi` job is scoped to
+`Continuum-AI-Corp`, so it skips on forks rather than failing at the OIDC
+exchange.
+
+Note that the **Run workflow** button only appears for workflows that exist on
+the repository's default branch — until `release.yml` is merged to `main`, there
+is nothing to dispatch.
 
 ## Local checks
 
