@@ -5,7 +5,7 @@ OpenAI-совместимый. BYOK. Один рабочий пространс�
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -208,10 +208,13 @@ client.models.generate_content(model="auto", contents="Hello!")
 
 | Платформа | One-click |
 |---|---|
-| Railway | [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
 | Fly.io | `fly launch --dockerfile Dockerfile` |
 | Render | Подключите репо, корневая директория = `.` |
-| Голый Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...` (образ скоро) |
+| Голый Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (панель в комплекте) |
+
+> **Railway:** подключите том в `/data` и задайте `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`, иначе каждый передеплой сотрёт ключи и аналитику. Полный список переменных: [`railway.toml`](./railway.toml).
 
 ## Что в коробке
 
@@ -268,7 +271,7 @@ x-orca-cache: HIT          ← из кэша, без запроса к upstream
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 487 passed
 ```
 
 | Слайс | Тесты | Что |
@@ -294,7 +297,8 @@ PYTHONPATH=. pytest -v
 | 19. Мульти-протокольная аутентификация | 6 | скоупинг x-api-key / x-goog-api-key / ?key=, guard для /v1beta, 401-конверты для каждого протокола |
 | 20. Anthropic `/v1/messages` | 53 | трансляция request/response/stream + ingress-интеграция |
 | 21. Gemini `/v1beta` | 40 | трансляция, вкл. нормализацию schema-enum + ingress для generateContent/stream |
-| **Всего** | **403** | |
+| 22. Упаковка | 6 | консольный скрипт, дашборд внутри wheel, разрешение каталога design |
+| **Всего** | **487** | |
 
 Строки слайсов показывают тесты, добавленные при выпуске каждого слайса; итог — текущий полный набор тестов.
 

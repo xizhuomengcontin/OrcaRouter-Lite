@@ -5,7 +5,7 @@ Tương thích OpenAI. BYOK. Workspace đơn. Streaming. `model="auto"`.
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -208,10 +208,13 @@ Hơn 100 mô hình chat được nạp khi khởi động từ [cơ sở dữ li
 
 | Nền tảng | One-click |
 |---|---|
-| Railway | [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
 | Fly.io | `fly launch --dockerfile Dockerfile` |
 | Render | Kết nối repo, root dir = `.` |
-| Docker thuần | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...` (image sắp ra mắt) |
+| Docker thuần | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (kèm dashboard) |
+
+> **Railway:** gắn một volume vào `/data` và đặt `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`, nếu không mỗi lần redeploy sẽ xoá sạch key và analytics. Danh sách biến đầy đủ: [`railway.toml`](./railway.toml).
 
 ## Có gì trong hộp
 
@@ -268,7 +271,7 @@ Xây dựng theo test-first. Mỗi hành vi giao ở đây đều có một test
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 487 passed
 ```
 
 | Slice | Tests | Cái gì |
@@ -294,7 +297,8 @@ PYTHONPATH=. pytest -v
 | 19. Auth đa giao thức | 6 | scoping x-api-key / x-goog-api-key / ?key=, guard /v1beta, envelope 401 theo từng giao thức |
 | 20. Anthropic `/v1/messages` | 53 | chuyển đổi request/response/stream + tích hợp ngõ vào |
 | 21. Gemini `/v1beta` | 40 | chuyển đổi gồm cả chuẩn hoá schema-enum + ngõ vào generateContent/stream |
-| **Tổng** | **403** | |
+| 22. Đóng gói | 6 | script console, dashboard đi kèm wheel, phân giải thư mục design |
+| **Tổng** | **487** | |
 
 Các hàng slice hiển thị số test được thêm khi từng slice ra mắt; tổng là bộ test đầy đủ hiện tại.
 

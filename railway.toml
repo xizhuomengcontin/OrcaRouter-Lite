@@ -1,0 +1,45 @@
+# Railway configuration for OrcaRouter-Lite.
+#
+# Railway reads `railway.json` and `railway.toml` identically; TOML is used here
+# so the deploy flow can live next to the config as inline comments, the same
+# way fly.toml documents the Fly.io flow.
+#
+# First-time flow (nothing to install locally):
+#
+#   1. railway.com -> New Project -> Deploy from GitHub repo -> pick this repo.
+#      The Dockerfile build and the /health check below are picked up
+#      automatically from this file.
+#
+#   2. Add a Volume mounted at `/data`. Skip this and the SQLite file lives in
+#      the container filesystem, so every redeploy wipes provider keys, API keys
+#      and analytics.
+#
+#   3. Variables -> add:
+#        DATABASE_URL=sqlite+aiosqlite:////data/orca.db
+#            Four slashes: `sqlite+aiosqlite:` + `///` (scheme) + `/data/orca.db`
+#            (absolute path). Matches the volume mount point from step 2.
+#        CREDENTIAL_ENCRYPTION_KEY=<openssl rand -hex 32>
+#        API_KEY_PEPPER=<openssl rand -hex 32>
+#            Generate both. Without them the app falls back to a dev key and
+#            re-derives it on every boot, invalidating stored credentials.
+#        OPENAI_API_KEY=sk-...   # optional; provider keys are also addable in the UI
+#
+#      PORT is injected by Railway — scripts/start.py already reads it.
+#
+#   4. Settings -> Networking -> Generate Domain.
+#
+# Subsequent pushes to the connected branch redeploy automatically.
+#
+# Volumes and variables cannot be expressed in config-as-code; only the build
+# and deploy sections below can.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "python scripts/start.py"
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10

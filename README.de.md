@@ -5,7 +5,7 @@ OpenAI-kompatibel. BYOK. Einzelner Workspace. Streaming. `model="auto"`.
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-487_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -208,10 +208,13 @@ Beim Start werden über 100 Chat-Modelle aus [LiteLLMs von der Community gepfleg
 
 | Plattform | One-Click |
 |---|---|
-| Railway | [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
 | Fly.io | `fly launch --dockerfile Dockerfile` |
 | Render | Repo verbinden, Root-Verzeichnis = `.` |
-| Bare Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...` (Image folgt) |
+| Bare Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (Dashboard inklusive) |
+
+> **Railway:** Ein Volume unter `/data` einhängen und `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` setzen — sonst löscht jedes Redeploy Keys und Analytics. Vollständige Variablenliste: [`railway.toml`](./railway.toml).
 
 ## Was ist enthalten
 
@@ -268,7 +271,7 @@ Test-First entwickelt. Jedes hier ausgelieferte Verhalten hatte zuerst einen feh
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 487 passed
 ```
 
 | Slice | Tests | Was |
@@ -294,7 +297,8 @@ PYTHONPATH=. pytest -v
 | 19. Multi-Protokoll-Auth | 6 | Scoping von x-api-key / x-goog-api-key / ?key=, /v1beta-Guard, 401-Envelopes pro Protokoll |
 | 20. Anthropic `/v1/messages` | 53 | Request-/Response-/Stream-Übersetzung + Ingress-Integration |
 | 21. Gemini `/v1beta` | 40 | Übersetzung inkl. Schema-Enum-Normalisierung + generateContent/Stream-Ingress |
-| **Gesamt** | **403** | |
+| 22. Packaging | 6 | Console-Script, im Wheel gebündeltes Dashboard, design-Verzeichnisauflösung |
+| **Gesamt** | **487** | |
 
 Die Slice-Zeilen zeigen die Tests, die beim Ausliefern des jeweiligen Slices hinzukamen; die Gesamtzahl ist die aktuelle vollständige Suite.
 
