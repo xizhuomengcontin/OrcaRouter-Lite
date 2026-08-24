@@ -5,7 +5,7 @@ Compatibile con OpenAI. BYOK. Workspace singolo. Streaming. `model="auto"`.
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -208,10 +208,13 @@ Oltre 100 modelli di chat vengono caricati all'avvio dal [database di prezzi man
 
 | Piattaforma | One-click |
 |---|---|
-| Railway | [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
 | Fly.io | `fly launch --dockerfile Dockerfile` |
 | Render | Collega il repo, root dir = `.` |
-| Docker nudo | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...` (immagine in arrivo) |
+| Docker nudo | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (dashboard inclusa) |
+
+> **Railway:** monta un volume su `/data` e imposta `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`, altrimenti ogni redeploy cancella chiavi e analytics. Elenco completo delle variabili: [`railway.toml`](./railway.toml).
 
 ## Cosa c'è nella scatola
 
@@ -268,7 +271,7 @@ Costruito test-first. Ogni comportamento spedito qui ha avuto prima un test che 
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 410 passed
 ```
 
 | Slice | Test | Cosa |
@@ -294,7 +297,8 @@ PYTHONPATH=. pytest -v
 | 19. Auth multi-protocollo | 6 | scoping x-api-key / x-goog-api-key / ?key=, guard /v1beta, envelope 401 per protocollo |
 | 20. Anthropic `/v1/messages` | 53 | traduzione richiesta/risposta/stream + integrazione ingress |
 | 21. Gemini `/v1beta` | 40 | traduzione incl. normalizzazione schema-enum + ingress generateContent/stream |
-| **Totale** | **403** | |
+| 22. Packaging | 6 | script console, dashboard nel wheel, risoluzione della directory design |
+| **Totale** | **410** | |
 
 Le righe degli slice mostrano i test aggiunti quando ogni slice è stato spedito; il totale è la suite completa attuale.
 

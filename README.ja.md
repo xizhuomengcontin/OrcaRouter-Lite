@@ -5,7 +5,7 @@ OpenAI対応。ビヨク。単一のワークスペース。ストリーミン�
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![テスト](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![テスト](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
 [![モデル](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![ライセンス](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -206,12 +206,15 @@ client.models.generate_content(model="auto", contents="Hello!")
 
 ## 別の場所にデプロイする
 
-|プラットフォーム |ワンクリック |
+| プラットフォーム | ワンクリック |
 |---|---|
-|鉄道 | [![鉄道へのデプロイ](https://railway.app/button.svg)](https://railway.app/new/template) |
-|フライアイオ | `フライ起動 --dockerfile Dockerfile` |
-|レンダリング |リポジトリに接続します。ルート ディレクトリ = `.` |
-|ベア・ドッカー | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...` (イメージは近日公開予定) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
+| Fly.io | `fly launch --dockerfile Dockerfile` |
+| Render | リポジトリに接続、ルートディレクトリ = `.` |
+| 素の Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite`（ダッシュボード同梱） |
+
+> **Railway:** `/data` にボリュームをマウントし `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` を設定してください。設定しないと再デプロイのたびにキーと分析データが消えます。変数の全一覧は [`railway.toml`](./railway.toml)。
 
 ## 箱の中身は何ですか
 
@@ -268,7 +271,7 @@ x-orca-cache: HIT          ← served from cache, no upstream call
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 410 passed
 ```
 
 |スライス |テスト |何を |
@@ -294,7 +297,8 @@ PYTHONPATH=. pytest -v
 | 19. マルチプロトコル認証 | 6 |x-api-key / x-goog-api-key / ?key= のスコープ、/v1beta ガード、プロトコルごとの 401 エンベロープ |
 | 20. Anthropic `/v1/messages` | 53 |リクエスト/レスポンス/ストリームの変換 + イングレス統合 |
 | 21. Gemini `/v1beta` | 40 |schema-enum 正規化を含む変換 + generateContent/ストリーム イングレス |
-| **合計** | **403** | |
+| 22. パッケージング | 6 | コンソールスクリプト、wheel 同梱ダッシュボード、design ディレクトリ解決 |
+| **合計** | **410** | |
 
 スライス行は各スライスの出荷時に追加されたテストを示します。合計は現在の完全なテスト スイートです。
 

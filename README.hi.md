@@ -5,7 +5,7 @@ OpenAI-compatible। BYOK। एकल-वर्कस्पेस। स्ट�
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -208,10 +208,13 @@ Requests को एज पर उसी आंतरिक पाइपलाइ
 
 | प्लेटफ़ॉर्म | वन-क्लिक |
 |---|---|
-| Railway | [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
 | Fly.io | `fly launch --dockerfile Dockerfile` |
-| Render | रेपो कनेक्ट करें, root dir = `.` |
-| बेयर Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...` (इमेज जल्द आ रही है) |
+| Render | रिपो कनेक्ट करें, रूट डायरेक्टरी = `.` |
+| बेयर Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (डैशबोर्ड शामिल) |
+
+> **Railway:** `/data` पर एक वॉल्यूम माउंट करें और `DATABASE_URL=sqlite+aiosqlite:////data/orca.db` सेट करें, वरना हर redeploy आपकी कीज़ और analytics मिटा देगा। पूरी वेरिएबल सूची: [`railway.toml`](./railway.toml)।
 
 ## बॉक्स में क्या है
 
@@ -268,7 +271,7 @@ x-orca-cache: HIT          ← कैश से सर्व, कोई upstream
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 410 passed
 ```
 
 | स्लाइस | टेस्ट | क्या |
@@ -294,7 +297,8 @@ PYTHONPATH=. pytest -v
 | 19. मल्टी-प्रोटोकॉल auth | 6 | x-api-key / x-goog-api-key / ?key= स्कोपिंग, /v1beta guard, प्रति-प्रोटोकॉल 401 envelopes |
 | 20. Anthropic `/v1/messages` | 53 | request/response/stream अनुवाद + इनग्रेस एकीकरण |
 | 21. Gemini `/v1beta` | 40 | schema-enum सामान्यीकरण सहित अनुवाद + generateContent/stream इनग्रेस |
-| **कुल** | **403** | |
+| 22. पैकेजिंग | 6 | कंसोल स्क्रिप्ट, wheel में बंडल डैशबोर्ड, design डायरेक्टरी रिज़ॉल्यूशन |
+| **कुल** | **410** | |
 
 स्लाइस पंक्तियाँ प्रत्येक स्लाइस के शिप होने पर जोड़े गए टेस्ट दिखाती हैं; कुल वर्तमान पूर्ण टेस्ट सुइट है।
 

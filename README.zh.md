@@ -5,7 +5,7 @@
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -208,10 +208,13 @@ client.models.generate_content(model="auto", contents="Hello!")
 
 | 平台 | 一键部署 |
 |---|---|
-| Railway | [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
 | Fly.io | `fly launch --dockerfile Dockerfile` |
 | Render | 连接代码仓库，根目录 = `.` |
-| 裸 Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...`（镜像即将发布）|
+| 裸 Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite`（自带仪表板） |
+
+> **Railway：** 需挂载一个 `/data` 卷并设置 `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`，否则每次重新部署都会清空密钥和分析数据。完整变量列表见 [`railway.toml`](./railway.toml)。
 
 ## 盒子里都有什么
 
@@ -268,7 +271,7 @@ x-orca-cache: HIT          ← 来自缓存，无上游调用
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 410 passed
 ```
 
 | 切片 | 测试数 | 内容 |
@@ -294,7 +297,8 @@ PYTHONPATH=. pytest -v
 | 19. 多协议鉴权 | 6 | x-api-key / x-goog-api-key / ?key= 作用域、/v1beta 守卫、按协议的 401 信封 |
 | 20. Anthropic `/v1/messages` | 53 | 请求/响应/流的转换 + 入口集成 |
 | 21. Gemini `/v1beta` | 40 | 转换（含 schema-enum 归一化）+ generateContent/流式入口 |
-| **合计** | **403** | |
+| 22. 打包 | 6 | 控制台脚本、随 wheel 打包的仪表板、design 目录解析 |
+| **合计** | **410** | |
 
 切片行显示的是各切片交付时新增的测试；合计是当前的完整测试套件。
 

@@ -5,7 +5,7 @@ OpenAI 호환. BYOK. 단일 작업 공간. 스트리밍. `모델="자동"`.
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![테스트](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![테스트](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
 [![모델](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![라이센스](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -208,10 +208,13 @@ client.models.generate_content(model="auto", contents="Hello!")
 
 | 플랫폼 | 원클릭 |
 |---|---|
-| 철도 | [![철도에 배포](https://railway.app/button.svg)](https://railway.app/new/template) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
 | Fly.io | `fly launch --dockerfile Dockerfile` |
-| 렌더링 | 저장소 연결, 루트 디렉토리 = `.` |
-| 베어 도커 | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...` (이미지 제공 예정) |
+| Render | 저장소 연결, 루트 디렉토리 = `.` |
+| 순수 Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (대시보드 포함) |
+
+> **Railway:** `/data`에 볼륨을 마운트하고 `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`를 설정하세요. 그러지 않으면 재배포할 때마다 키와 분석 데이터가 사라집니다. 전체 변수 목록: [`railway.toml`](./railway.toml).
 
 ## 상자 안에 무엇이 들어있나요?
 
@@ -268,7 +271,7 @@ x-orca-cache: HIT          ← served from cache, no upstream call
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 410 passed
 ```
 
 | 슬라이스 | 테스트 | 무엇 |
@@ -294,7 +297,8 @@ PYTHONPATH=. pytest -v
 | 19. 다중 프로토콜 인증 | 6 | x-api-key / x-goog-api-key / ?key= 범위 지정, /v1beta 가드, 프로토콜별 401 봉투 |
 | 20. Anthropic `/v1/messages` | 53 | 요청/응답/스트림 변환 + 인그레스 통합 |
 | 21. Gemini `/v1beta` | 40 | schema-enum 정규화를 포함한 변환 + generateContent/스트림 인그레스 |
-| **합계** | **403** | |
+| 22. 패키징 | 6 | 콘솔 스크립트, wheel에 포함된 대시보드, design 디렉터리 해석 |
+| **합계** | **410** | |
 
 슬라이스 행은 각 슬라이스가 출시될 때 추가된 테스트를 보여줍니다. 합계는 현재 전체 테스트 스위트입니다.
 

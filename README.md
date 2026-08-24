@@ -5,7 +5,7 @@ OpenAI-compatible. BYOK. Single-workspace. Streaming. `model="auto"`.
 
 ![OrcaRouter Lite Logo](https://github.com/Continuum-AI-Corp/OrcaRouter-Lite/blob/main/design/OrcaRouter%20Lite.png?raw=true)
 
-[![tests](https://img.shields.io/badge/tests-403_passing-brightgreen)](#testing)
+[![tests](https://img.shields.io/badge/tests-410_passing-brightgreen)](#testing)
 [![models](https://img.shields.io/badge/models-100%2B-blue)](#model-catalog)
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 
@@ -214,10 +214,13 @@ routing strategies, and the analytics dashboard all work identically. Guides:
 
 | Platform | One-click |
 |---|---|
-| Railway | [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template) |
+| Railway | [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new) |
 | Fly.io | `fly launch --dockerfile Dockerfile` |
 | Render | Connect repo, root dir = `.` |
-| Bare Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/...` (image coming soon) |
+| Bare Docker | `docker run -p 8000:8000 -e OPENAI_API_KEY=... ghcr.io/continuum-ai-corp/orcarouter-lite` |
+| pip / pipx | `pipx install orcarouter-lite` → `orcarouter-lite` (dashboard included) |
+
+> **Railway:** add a volume mounted at `/data` and set `DATABASE_URL=sqlite+aiosqlite:////data/orca.db`, or every redeploy wipes your keys and analytics. Full variable list: [`railway.toml`](./railway.toml).
 
 ## What's in the box
 
@@ -274,7 +277,7 @@ Built test-first. Every behaviour shipped here had a failing test first.
 ```bash
 pip install -e ".[dev]"
 PYTHONPATH=. pytest -v
-# 403 passed
+# 410 passed
 ```
 
 | Slice | Tests | What |
@@ -300,7 +303,8 @@ PYTHONPATH=. pytest -v
 | 19. Multi-protocol auth | 6 | x-api-key / x-goog-api-key / ?key= scoping, /v1beta guard, per-protocol 401 envelopes |
 | 20. Anthropic `/v1/messages` | 53 | request/response/stream translation + ingress integration |
 | 21. Gemini `/v1beta` | 40 | translation incl. schema-enum normalization + generateContent/stream ingress |
-| **Total** | **403** | |
+| 22. Packaging | 6 | console script, wheel-bundled dashboard, design-dir resolution |
+| **Total** | **410** | |
 
 Slice rows show the tests added when each slice shipped; the total is the current full suite.
 
